@@ -20,7 +20,7 @@ variable "tags" {
   type = map(string)
   default = {
     environment = "development"
-    team        = "eon"
+    team        = "eon2"
   }
   description = "A map of tags to assign to the resource."
 }
@@ -42,6 +42,12 @@ resource "azurerm_storage_account" "default" {
   allow_nested_items_to_be_public = false
 
   tags = var.tags
+}
+
+resource "azurerm_storage_container" "state" {
+  name                  = "tfstate"
+  storage_account_id    = azurerm_storage_account.default.id
+  container_access_type = "private"
 }
 
 data "azurerm_client_config" "default" {}
