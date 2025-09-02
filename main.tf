@@ -16,6 +16,12 @@ variable "location" {
   description = "The Azure region to deploy resources in."
 }
 
+variable "environment" {
+  type        = string
+  default     = "dev"
+  description = "The environment name to deploy resources in."
+}
+
 variable "tags" {
   type = map(string)
   default = {
@@ -26,7 +32,7 @@ variable "tags" {
 }
 
 resource "azurerm_resource_group" "default" {
-  name     = "eon-september-rg-${random_string.suffix.result}"
+  name     = "eon-september-${var.environment}-rg"
   location = var.location
 
   tags = var.tags

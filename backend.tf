@@ -1,7 +1,7 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "eon-september-rg-aals"
-    storage_account_name = "eonseptembersaaals"
+    resource_group_name  = "default"
+    storage_account_name = "tfstatecwcontoso"
     container_name       = "tfstate"
     key                  = "eon-september-dev.tfstate"
   }
