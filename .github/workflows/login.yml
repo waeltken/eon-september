@@ -19,6 +19,5 @@ jobs:
           client-id: ${{ vars.CLIENT_ID }}
           tenant-id: ${{ vars.TENANT_ID }}
           subscription-id: ${{ vars.SUBSCRIPTION_ID }}
-          auth-type: IDENTITY
       - run: az group list -o table
           
