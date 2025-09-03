@@ -13,14 +13,6 @@ module "storage1" {
   tags                = var.tags
 }
 
-module "storage2" {
-  source = "./modules/storage_account"
-
-  location            = azurerm_resource_group.default.location
-  resource_group_name = azurerm_resource_group.default.name
-  tags                = var.tags
-}
-
 data "azurerm_client_config" "default" {}
 
 # This ensures we have unique CAF compliant names for our resources.
