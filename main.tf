@@ -43,12 +43,24 @@ module "storage1" {
   tags                = var.tags
 }
 
+module "storage2" {
+  source = "./modules/storage_account"
+
+  location            = azurerm_resource_group.default.location
+  resource_group_name = azurerm_resource_group.default.name
+  tags                = var.tags
+}
+
 data "azurerm_client_config" "default" {}
 
 output "resource_group_name" {
   value = azurerm_resource_group.default.name
 }
 
-output "storage_account_name" {
+output "storage_account_name1" {
   value = module.storage1.storage_account_name
+}
+
+output "storage_account_name2" {
+  value = module.storage2.storage_account_name
 }
