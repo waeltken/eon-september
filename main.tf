@@ -49,6 +49,8 @@ resource "azurerm_container_app" "default" {
       cpu    = "0.25"
       memory = "0.5Gi"
     }
+    max_replicas = 1
+    min_replicas = 0
   }
 
   ingress {
