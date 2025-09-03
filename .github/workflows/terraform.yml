@@ -1,0 +1,26 @@
+name: Terraform Deployment Automation
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy-dev:
+    env:
+      ARM_CLIENT_ID: "${{ vars.CLIENT_ID }}"
+      ARM_SUBSCRIPTION_ID: "${{ vars.SUBSCRIPTION_ID }}"
+      ARM_TENANT_ID: "${{ vars.TENANT_ID }}"
+      ARM_USE_OIDC: true
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+      - run: cp environments/dev/* ./
+      - run: terraform init
+
+          
