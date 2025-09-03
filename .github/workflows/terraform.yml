@@ -23,5 +23,6 @@ jobs:
         uses: hashicorp/setup-terraform@v1
       - run: cp environments/dev/* ./
       - run: terraform init
+      - run: terraform plan
 
           
