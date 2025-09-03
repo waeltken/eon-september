@@ -49,8 +49,9 @@ module "container_app" {
       cpu    = "0.25"
       memory = "0.5Gi"
     }]
-    min_replicas = 1
-    max_replicas = 1
+    min_replicas    = 0
+    max_replicas    = 1
+    cooldown_period = 60
   }
   enable_telemetry = false
   ingress = {
