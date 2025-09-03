@@ -35,32 +35,29 @@ resource "azurerm_container_app_environment" "this" {
   resource_group_name = azurerm_resource_group.default.name
 }
 
-# This is the module call
-module "container_app" {
-  source = "Azure/avm-res-app-containerapp/azurerm"
+resource "azurerm_container_app" "default" {
+  container_app_environment_id = azurerm_container_app_environment.this.id
+  name                         = module.naming.container_app.name_unique
+  resource_group_name          = azurerm_resource_group.default.name
+  revision_mode                = "Single"
 
-  container_app_environment_resource_id = azurerm_container_app_environment.this.id
-  name                                  = module.naming.container_app.name_unique
-  resource_group_name                   = azurerm_resource_group.default.name
-  template = {
-    containers = [{
-      image  = "mcr.microsoft.com/azuredocs/containerapps-helloworld:latest"
-      name   = "containerapps-helloworld"
+  template {
+    container {
+      image = "mcr.microsoft.com/azuredocs/containerapps-helloworld:latest"
+      name  = "hello-world"
+
       cpu    = "0.25"
       memory = "0.5Gi"
-    }]
-    min_replicas    = 0
-    max_replicas    = 1
-    cooldown_period = 60
+    }
   }
-  enable_telemetry = false
-  ingress = {
-    external_enabled = true
+
+  ingress {
     target_port      = 80
-    traffic_weight = [{
+    external_enabled = true
+
+    traffic_weight {
       latest_revision = true
       percentage      = 100
-    }]
+    }
   }
-  revision_mode = "Single"
 }
